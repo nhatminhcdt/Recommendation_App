@@ -24,7 +24,7 @@ Use user-based and collaborative filtering to provide recommendations.
 - [Cosine Similarity - Wikipedia](https://en.wikipedia.org/wiki/Cosine_similarity)<br>
 - [Collaborative Filtering](https://spark.apache.org/docs/2.2.0/ml-collaborative-filtering.html)
 - [Streamlit API](https://docs.streamlit.io/library/api-reference)<br>
-
+- [Git large file](https://git-lfs.com/)
 
 ---
 ## Workflow
