@@ -50,9 +50,9 @@ def product_info_display(row):
   if row.image != None:
     # Check if image can be displayed
     try:
-      st.image(row.image, width=200, caption=f'ID {int(row.product_id)}', use_column_width='auto')
+      st.image(row.image, width=100, caption=f'ID {int(row.product_id)}', use_column_width='auto')
     except:
-      st.image(No_Image_Available, width=200, caption=f'ID {int(row.product_id)}', use_column_width='auto')
+      st.image(No_Image_Available, width=100, caption=f'ID {int(row.product_id)}', use_column_width='auto')
   else:
     st.write('No image')
   # --- display product_id and product_name ---
@@ -85,6 +85,12 @@ def handle_cb_search_button_click(desc, rec_nums, threshold, isVoice):
   else:
     description = desc
 
+  # Get info of the product
+  if description.isdigit():
+    product_info_  = pr_.get_product_info_(int(description))
+    if product_info_ is not None:
+      product_info_display(product_info_.iloc[0])
+
   # Get top similar products
   results = pr_.recommend_products(description, rec_nums, threshold)
   # Check if the results is empty
@@ -104,7 +110,7 @@ def handle_cb_search_button_click(desc, rec_nums, threshold, isVoice):
   for group_num, group in results.groupby((results.index % 3)):
     with col1 if group_num == 0 else col2 if group_num == 1 else col3:
       for row in group.itertuples():
-          product_info_display(row)
+        product_info_display(row)
   return
 
 
@@ -148,7 +154,7 @@ def handle_cf_user_search_button_click(user_id, rec_nums, threshold):
   for group_num, group in results.groupby((results.index % 3)):
     with col1 if group_num == 0 else col2 if group_num == 1 else col3:
       for row in group.itertuples():
-          product_info_display(row)
+        product_info_display(row)
   return
 
 
@@ -373,6 +379,8 @@ def main():
     st.title('Data Science Capstone Project')
     st.subheader("Shopee Recommendation System")
     st.image(BrandImg, width=400)
+    # Markdown italic with link
+    st.markdown("*(Data used in this project is from https://shopee.vn/Th%E1%BB%9Di-Trang-Nam-cat.11035567)*")
     st.subheader("***Business Understanding***")
     # --- Content-based Filtering ---
     st.write("## Content-based Filtering")
@@ -383,6 +391,9 @@ def main():
     st.write("Collaborative filtering is a technique that can filter out items that a user might like on the basis of reactions by similar users.\
               It works by searching a large group of people and finding a smaller set of users with tastes similar to a particular user.\
               The system would then recommend items that those similar users liked to the particular user.")
+    st.write("In this project, we will cover:")
+    st.markdown("・*User-based Collaborative Filtering:* will look for similar users based on the items users have already liked or positively interacted with.")
+    st.markdown("・*Item-based Collaborative Filtering:* recommendation system to use the similarity between items using the ratings by users.")
     st.image(CollaUserItemImg, width=800)
     
   # --- Content-based Filtering ---
@@ -453,6 +464,8 @@ def main():
                         Increasing value of **rank** will increase the accuracy of the model but will also increase the training time and memory usage.\
                         Pay attention to this parameter to not make the model overfitting.')
     collaborative_based_filtering(option)
+
+
 # ====================== Main ====================== #
 if __name__ == "__main__":
   main()

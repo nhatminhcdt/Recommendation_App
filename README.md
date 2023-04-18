@@ -65,13 +65,13 @@ There are two methods to calculate similarity between products:
 - The general idea of ALS is to repeatedly adjust the user and item feature vectors to minimize the error of observed ratings.
 - The target Mean Root Squared Error (MRSE) of this project is less than 1.2
 - Run cross-validation on the training set to find the best parameters for the ALS model.
-| Parameter | Value |
-| --- | --- |
-| rank | 10, 40 |
-| maxIter | 10 |
-| regParam | 0.01, 0.1 |
-| alpha | 1.0 |
-| numFolds | 3 |
+| Parameter | Value     |
+| --------- | --------- |
+| rank      | 10, 40    |
+| maxIter   | 10        |
+| regParam  | 0.01, 0.1 |
+| alpha     | 1.0       |
+| numFolds  | 3         |
 
 
 ---
@@ -82,8 +82,8 @@ There are two methods to calculate similarity between products:
 - **Collaborative filtering**<br>
 	・ ALS Hyperparameters (with RMSE = 1.18)<br>
 | rank | maxIter | regParam | alpha |
-| --- | --- | --- | --- |
-| 40 | 10 | 0.1 | 1.0 |
+| ---- | ------- | -------- | ----- |
+| 40   | 10      | 0.1      | 1.0   |
 
 	・ <span style="color:blue">***Note:***</span> that increasing value of **rank** will increase the accuracy of the model but will also increase the training time and memory usage. Pay attention to this parameter to not make the model overfitting.<br>
 	
@@ -92,11 +92,11 @@ There are two methods to calculate similarity between products:
 
 ---
 ## **GUI**
-- GUI is built with Streamlit and deployed on Streamlit cloud.
-👉 [GUI's link](https://nhatminhcdt-recommendation-app-app-xpee57.streamlit.app/)
+- GUI is built with Streamlit and deployed on Streamlit cloud. 👉 [GUI's link](https://nhatminhcdt-recommendation-app-app-t8tv3b.streamlit.app/)
 
 ---
 ## **Troublesome**
+
 ### GitHub large file upload
 - For large files, example .csv file
 ```
@@ -111,9 +111,18 @@ git add "Data/ItemRecMatrix_.csv"
 git add .
 git commit -m "commit message"
 git push --set-upstream origin master
+```
 
+### Speech Recognition stuck at 'Listening...'
+- Microphone picks up too much ambient noise
+```
+r = sr.Recognizer()
+with sr.Microphone() as source:
+	r.adjust_for_ambient_noise(source)
+	audio = r.listen(source)
 ```
 
 ---
 ## **Log**
+- 2023/04/18 - Eliminate ambient noises come to Microphone <br>
 - 2023/04/17 - First Commit <br>

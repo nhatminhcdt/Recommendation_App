@@ -29,7 +29,7 @@ DEF_SIMILARITY_THRESHOLD  = 0.4
 USER_ITEM_RECS_NUM        = 5
 DEF_RATING_THRESHOLD      = 3.0
 
-USER_ITEM_HIST_NUM        = 10
+USER_ITEM_HIST_NUM        = 20
 TOP_USER_WITH_RATING_NUM  = 100
 
 # --- For Collaborative Filtering ---
@@ -97,6 +97,7 @@ def takecomand():
   r = sr.Recognizer()
   with sr.Microphone() as source:
     st.write("Tell me your product's ID or description ...")
+    r.adjust_for_ambient_noise(source)
     audio = r.listen(source)
     try:
       text = r.recognize_google(audio, language="vi-VI")
@@ -159,15 +160,6 @@ class ProductRecommendations:
         else:
           # Get product description
           product_description = df[df.product_id == product_id].product_name_description_processed.values[0]
-          # get product name
-          product_name = df[df.product_id == product_id].product_name.values[0]
-          st.success(f'Product ID {product_id} - {product_name}')
-          # check to display product image
-          try:
-            product_image = df[df.product_id == product_id].image.values[0]
-            st.image(product_image, width=200)
-          except:
-            pass          
       else:
         # Input is product description
         product_description = input_text
